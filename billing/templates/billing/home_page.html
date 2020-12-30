@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <style>
+        h1 {
+  text-align: center;
+  text-transform: uppercase;
+  color: #eb0c65;
+}
+
+
+    </style>
+</head>
+<body>
+<h1 style="background-color:DodgerBlue;">Welcome To Grocery Billing System</h1>
+
+<a href="{% url 'create' %}" class="link-success">Create Product</a>
+<a href="{% url 'list' %}" class="link-success">View Product</a>
+<a href="{% url 'add' %}" class="link-success">Create Purchase</a>
+<a href="{% url 'listpurchase' %}" class="link-success">View Purchase</a>
+
+</body>
+</html>
