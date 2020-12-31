@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>view</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th><b>Bill Number</b></th>
+            <th><b>Bill Date</b></th>
+            <th><b>Customer Name</b></th>
+            <th><b>Phone Number</b></th>
+            <th><b>Total Bill Amount</b></th>
+            <th><b></b></th>
+            <th><b></b></th>
+        </tr>
+    </thead>
+
+    {% for formss in forms %}
+    <tbody>
+        <tr>
+            <td>
+            {{formss.billnumber}}
+            </td>
+            <td>
+            {{formss.bill_date}}
+            </td>
+            <td>
+            {{formss.customer_name}}
+            </td>
+            <td>
+            {{formss.phone_number}}
+            </td>
+            <td>
+            {{formss.bill_total}}
+            </td>
+
+            <td><a href="{% url 'viewbilldetails' formss.billnumber %}" class="link-primary">View Items</a></td>
+
+
+        </tr>
+    </tbody>
+    {% endfor %}
+
+</table>
+</body>
+</html>

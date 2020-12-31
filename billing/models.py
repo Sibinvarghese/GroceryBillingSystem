@@ -19,18 +19,18 @@ class Purchase(models.Model):
         return str(self.qty+self.selling_price)
 
 class Order(models.Model):
-    billnumber=models.AutoField(primary_key=True)
+    billnumber=models.CharField (max_length=10,unique=True)
     bill_date=models.DateField(auto_now=True)
     customer_name=models.CharField(max_length=60)
     phone_number=models.CharField(max_length=12)
-    bill_total=models.FloatField(null=False)
+    bill_total=models.FloatField(default=0)
 
     def __str__(self):
-        return str(self.billnumber)+str(self.customer_name)
+        return str(self.billnumber)
 
 class OrderLines(models.Model):
     bill_number=models.ForeignKey(Order,on_delete=models.CASCADE)
-    product_name=models.CharField(max_length=60)
+    product_name=models.ForeignKey(Product,on_delete=models.CASCADE)
     product_qty=models.FloatField()
     amount=models.FloatField()
 

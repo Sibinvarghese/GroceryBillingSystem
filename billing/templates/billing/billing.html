@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Billing</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" class="btn btn-primary" value="Add Bill">
+</form>
+<hr>
+
+<td><a href="{% url 'home' %}" class="link-dark">GotoHomePage</a></td>
+
+</body>
+</html>

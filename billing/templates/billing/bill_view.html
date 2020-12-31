@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Bill Number{{bill_number}}</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th><b>Bill Number</b></th>
+            <th><b>Product Name</b></th>
+            <th><b>Product Qty</b></th>
+            <th><b>Amount</b></th>
+            <th><b></b></th>
+            <th><b></b></th>
+        </tr>
+    </thead>
+
+    {% for formss in forms %}
+    <tbody>
+        <tr>
+            <td>
+            {{formss.bill_number}}
+            </td>
+            <td>
+            {{formss.product_name}}
+            </td>
+            <td>
+            {{formss.product_qty}}
+            </td>
+            <td>
+            {{formss.amount}}
+            </td>
+
+        </tr>
+    </tbody>
+    {% endfor %}
+
+</table>
+</body>
+</html>

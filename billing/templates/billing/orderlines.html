@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Billing</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" class="btn btn-primary" value="Add Items">
+    <input type="submit" class="btn btn-primary" value="Bill Gernate">
+</form>
+<h2>Total Amount {{total.amount__sum}}</h2>
+<hr>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th><b>Bill Number</b></th>
+            <th><b>Product Name</b></th>
+            <th><b>Product Qty</b></th>
+            <th><b>Amount</b></th>
+            <th><b></b></th>
+            <th><b></b></th>
+        </tr>
+    </thead>
+
+    {% for formss in forms %}
+    <tbody>
+        <tr>
+            <td>
+            {{formss.bill_number}}
+            </td>
+            <td>
+            {{formss.product_name}}
+            </td>
+            <td>
+            {{formss.product_qty}}
+            </td>
+            <td>
+            {{formss.amount}}
+            </td>
+
+        </tr>
+    </tbody>
+    {% endfor %}
+
+</table>
+
+<hr>
+
+<td><a href="{% url 'home' %}" class="link-dark">GotoHomePage</a></td>
+
+</body>
+</html>
