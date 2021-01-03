@@ -3,6 +3,7 @@ from billing.models import Product,Purchase,Order,OrderLines
 from billing.forms import ProductCreateForm,PurchaseCreateForm,OrderCreateForm,OrderlinesCreateForm
 from django.views.generic import TemplateView
 from django.db.models import Sum
+
 # Create your views here.
 class CreateProduct(TemplateView):
     form_class=ProductCreateForm
@@ -139,8 +140,14 @@ class OrderCreate(TemplateView):
     context={}
 
     def get(self, request, *args, **kwargs):
-        form=OrderCreateForm
+        orders = Order.objects.all().last()
+        billnumber=int(orders.billnumber)
+        billnumber+=1
+        billnumber=str(billnumber)
+
+        form=OrderCreateForm(initial={"billnumber":billnumber})
         self.context["form"]=form
+
         return render(request,self.template_name,self.context)
 
     def post(self, request, *args, **kwargs):
@@ -153,7 +160,6 @@ class OrderCreate(TemplateView):
             self.context["form"]=form
             return render(request, self.template_name, self.context)
 
-
 class OrderLinesView(TemplateView):
     model=OrderLines
     template_name = "billing/orderlines.html"
@@ -165,7 +171,6 @@ class OrderLinesView(TemplateView):
         form=OrderlinesCreateForm(initial={"bill_number":bill})
         self.context["form"]=form
         return render(request, self.template_name, self.context)
-
     def post(self, request, *args, **kwargs):
         form=OrderlinesCreateForm(request.POST)
         if form.is_valid():
@@ -174,26 +179,20 @@ class OrderLinesView(TemplateView):
             billnum=form.cleaned_data.get("bill_number")
             product_qy=form.cleaned_data.get("product_qty")
             # print(billnum,product_name,product_qy)
-            price = Purchase.objects.get(product=product_name)
+            getproductname=Product.objects.get(product_name=product_name)
+            price = Purchase.objects.get(product__product_name=product_name)
             qtys=price.qty
             sellprices=price.selling_price
             amounts=product_qy*sellprices
-
-            # print(qtys, sellprices)
-            # print(amounts)
             balanceqty=qtys-product_qy
             # print(balanceqty)
             price.qty=balanceqty
             price.save()
-
             self.context["price"] = price
             bill = Order.objects.get(billnumber=billnum)
-
-
             form = OrderlinesCreateForm(initial={"bill_number": bill})
-
             self.context["form"] = form
-            val=OrderLines(bill_number=bill,product_name=product_name,product_qty=product_qy,amount=amounts)
+            val=OrderLines(bill_number=bill,product_name=getproductname,product_qty=product_qy,amount=amounts)
             val.save()
             sumofamount=OrderLines.objects.filter(bill_number=bill).aggregate(Sum('amount'))
             self.context["total"] = sumofamount
@@ -245,21 +244,35 @@ class View_ToatlBill(TemplateView):
         else:
             self.context["form"] = form
             return render(request, self.template_name, self.context)
+
 class View_BillDetails(TemplateView):
     model=Order
     template_name = "billing/bill_view.html"
     context={}
     def get_object(self,billnum):
         return self.model.objects.filter(billnumber=billnum)
-
+    #
     def get(self, request, *args, **kwargs):
-        billnum = self.get_object(kwargs.get("billnumber"))
-        # print(billnum)
-        getorderlinesdatas = billnum
-        self.context["forms"] = getorderlinesdatas
-
-
+        # billnum = self.get_object(kwargs.get("billnumber"))
+        # # print(billnum)
+        # getorderlinesdatas = billnum
+        # self.context["forms"] = getorderlinesdatas
+        #
+        #
         # self.context["forms"] = getorderlinesdatas
         return render(request, self.template_name, self.context)
+
+class BillGenerate(TemplateView):
+    template_name = "billing/bill_generate.html"
+    context={}
+
+    def get(self, request, *args, **kwargs):
+        orders = Order.objects.all().last()
+        billnumber = int(orders.billnumber)
+        getorder=Order.objects.get(billnumber=billnumber)
+        self.context["getorder"]=getorder
+
+
+        return render(request,self.template_name,self.context)
 
 

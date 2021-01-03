@@ -19,7 +19,17 @@ class OrderCreateForm(ModelForm):
         model = Order
         fields = ["billnumber","customer_name","phone_number"]
 
-class OrderlinesCreateForm(ModelForm):
-    class Meta:
-        model = OrderLines
-        fields = ["bill_number","product_name","product_qty"]
+class OrderlinesCreateForm(forms.Form):
+        # fields = ["bill_number","product_name","product_qty"]
+
+        bill_number=forms.CharField()
+        queryset = Purchase.objects.all().values_list('product__product_name',flat=True)
+        choices = [(name, name) for name in queryset]
+
+        product_name=forms.ChoiceField(choices=choices,required=False,widget=forms.Select())
+        product_qty=forms.IntegerField()
+
+        class Meta:
+            model=OrderLines
+            fields = ["bill_number", "product_name", "product_qty"]
+

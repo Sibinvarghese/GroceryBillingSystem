@@ -19,7 +19,7 @@ class Purchase(models.Model):
         return str(self.qty+self.selling_price)
 
 class Order(models.Model):
-    billnumber=models.CharField (max_length=10,unique=True)
+    billnumber=models.CharField(max_length=10,unique=True)
     bill_date=models.DateField(auto_now=True)
     customer_name=models.CharField(max_length=60)
     phone_number=models.CharField(max_length=12)

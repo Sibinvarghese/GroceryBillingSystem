@@ -5,7 +5,7 @@ from .views import CreateProduct,ViewProduct,HomePage,\
     EditProduct,DeleteProduct,CreatePurchase,\
     ViewPurchase,EditPurchase,DeletePurchase,\
     OrderCreate,OrderLinesView,View_Bill,\
-    View_ToatlBill,View_BillDetails
+    View_ToatlBill,View_BillDetails,BillGenerate
 urlpatterns = [
     path("addproduct",CreateProduct.as_view(),name="create"),
     path("listproduct",ViewProduct.as_view(),name="list"),
@@ -20,5 +20,6 @@ urlpatterns = [
     path("orderlines<int:billno>",OrderLinesView.as_view(),name="orderlines"),
     path("view",View_Bill.as_view(),name="viewbills"),
     path("viewbill",View_ToatlBill.as_view(),name="viewtotalbill"),
-    path("viewbillitems/<int:billnumber>",View_BillDetails.as_view(),name="viewbilldetails")
+    path("viewbillitems/<int:billnumber>",View_BillDetails.as_view(),name="viewbilldetails"),
+    path("billgenerate",BillGenerate.as_view(),name="billgenerate"),
 ]
