@@ -4,8 +4,8 @@ from django.urls import path
 from .views import CreateProduct,ViewProduct,HomePage,\
     EditProduct,DeleteProduct,CreatePurchase,\
     ViewPurchase,EditPurchase,DeletePurchase,\
-    OrderCreate,OrderLinesView,View_Bill,\
-    View_ToatlBill,View_BillDetails,BillGenerate
+    OrderCreate,OrderLinesView,BillGenerate,\
+    ViewBill,ViewBillItems,SearchOrder,HomePageFinal,UserLogin,UserLogout
 urlpatterns = [
     path("addproduct",CreateProduct.as_view(),name="create"),
     path("listproduct",ViewProduct.as_view(),name="list"),
@@ -18,8 +18,11 @@ urlpatterns = [
     path("deletepurchase/<int:pk>",DeletePurchase.as_view(),name="deletepurchase"),
     path("order",OrderCreate.as_view(),name="billing"),
     path("orderlines<int:billno>",OrderLinesView.as_view(),name="orderlines"),
-    path("view",View_Bill.as_view(),name="viewbills"),
-    path("viewbill",View_ToatlBill.as_view(),name="viewtotalbill"),
-    path("viewbillitems/<int:billnumber>",View_BillDetails.as_view(),name="viewbilldetails"),
-    path("billgenerate",BillGenerate.as_view(),name="billgenerate"),
+    path("billgenerate/<int:billno>",BillGenerate.as_view(),name="billgenerate"),
+    path("viewbill",ViewBill.as_view(),name="viewbill"),
+    path("viewbillitems/<int:billno>",ViewBillItems.as_view(),name="billitems"),
+    path("search",SearchOrder.as_view(),name="search"),
+    path("homepage",HomePageFinal.as_view(),name="page"),
+    path("",UserLogin.as_view(),name="login"),
+    path("logout",UserLogout.as_view(),name="logout")
 ]

@@ -26,7 +26,7 @@ class Order(models.Model):
     bill_total=models.FloatField(default=0)
 
     def __str__(self):
-        return str(self.billnumber)
+        return self.billnumber
 
 class OrderLines(models.Model):
     bill_number=models.ForeignKey(Order,on_delete=models.CASCADE)

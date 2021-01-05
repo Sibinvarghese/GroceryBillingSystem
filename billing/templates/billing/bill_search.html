@@ -16,10 +16,20 @@
 
 
 <!--    </style>-->
-
 <!--</head>-->
 <!--<body>-->
-<h1>view</h1>
+<h1>search</h1>
+<form method="get">
+    {{myfilter.form}}
+    <input type="submit" value="Search">
+
+</form>
+<!-- recipe_name=models.CharField(max_length=120)-->
+<!--    ingredients=models.CharField(max_length=300)-->
+<!--    category=models.CharField(max_length=120)-->
+<!--    recipe_img=models.ImageField(upload_to="images")-->
+<!--    created_by=models.CharField(max_length=120)-->
+
 <table class="table">
     <thead>
         <tr>
@@ -32,7 +42,7 @@
             <th><b></b></th>
         </tr>
     </thead>
-{% for bill in page_obj %}
+{% for bill in billno %}
     <tbody>
         <tr>
             <td>
@@ -58,26 +68,12 @@
 
 {% endfor %}
 </table>
-<div class="pagination">
-    <span class="step-links">
-        {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-        {% endif %}
 
-        <span class="current">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-        </span>
-
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
-</div>
 <hr>
 
 <td><a href="{% url 'page' %}" class="link-dark">GotoHomePage</a></td>
+
 {% endblock %}
+
 <!--</body>-->
 <!--</html>-->
