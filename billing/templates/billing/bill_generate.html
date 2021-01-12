@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% extends 'billing/index.html' %}
-    {% block body_block %}
+{% load crispy_forms_tags %}
+{% block body_block %}
 
 <!--<html lang="en">-->
 <!--<head>-->
@@ -64,7 +65,7 @@
 <h1>Grocery Billing System</h1>
 
     {% csrf_token %}
-    {{form.as_p}}
+    {{form|crispy}}
 
 <div>
 <div class="left">

@@ -9,8 +9,13 @@ class ProductCreateForm(ModelForm):
 
 class PurchaseCreateForm(ModelForm):
     class Meta:
+
         model = Purchase
         fields = ["product","qty","purchase_price","selling_price"]
+        # widgets = {"qty": forms.TextInput(attrs={'class': 'form-control'})}
+        # widgets = {"product": forms.TextInput(attrs={'class': 'form-control'})}
+        # widgets = {"purchase_price": forms.TextInput(attrs={'class': 'form-control'})}
+
 
 class OrderCreateForm(ModelForm):
     billnumber = forms.CharField(widget=forms.TextInput(attrs={'readonly': 'readonly'}))

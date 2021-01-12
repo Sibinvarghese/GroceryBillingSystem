@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+{% extends 'billing/index.html' %}
+{% load crispy_forms_tags %}
+    {% block body_block %}
+
+
+<h1>Search By Date</h1>
+
+<form method="post">
+     {% csrf_token %}
+  <div class="mb-3">
+    <label class="form-label">Date</label>
+    <input type="date" class="form-control" name="date">
+  </div>
+    <input type="submit" class="btn btn-primary" value="Search">
+
+</form>
+{% if data%}
+<h4>Total Amount = {{data}}</h4>
+{% endif %}
+{% if form %}
+<table class="table">
+    <thead>
+        <tr>
+            <th><b>Bill Number</b></th>
+            <th><b>Bill Date</b></th>
+            <th><b>Customer Name</b></th>
+            <th><b>Phone Number</b></th>
+            <th><b>Total Bill Amount</b></th>
+            <th><b></b></th>
+            <th><b></b></th>
+        </tr>
+    </thead>
+{% for items in form %}
+    <tbody>
+        <tr>
+            <td>
+            {{items.billnumber}}
+            </td>
+            <td>
+            {{items.bill_date}}
+            </td>
+            <td>
+            {{items.customer_name}}
+            </td>
+            <td>
+            {{items.phone_number}}
+            </td>
+            <td>
+            {{items.bill_total}}
+            </td>
+
+
+        </tr>
+    </tbody>
+{% endfor %}
+</table>
+{% endif %}
+
+<hr>
+
+<td><a href="{% url 'page' %}" class="link-dark">GotoHomePage</a></td>
+{% endblock %}

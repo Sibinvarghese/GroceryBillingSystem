@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from billing.models import Product,Purchase,Order,OrderLines
 from billing.forms import ProductCreateForm,PurchaseCreateForm,OrderCreateForm,OrderlinesCreateForm
 from django.views.generic import TemplateView
-from django.db.models import Sum
+from django.db.models import Sum,Count
 from django.core.paginator import Paginator
 from .filters import OrderFilter
 from django.contrib.auth import authenticate,login,logout
@@ -263,6 +263,7 @@ class ViewBillItems(TemplateView):
 
         return render(request, self.template_name, self.context)
 
+
 class SearchOrder(TemplateView):
     model=Order
     template_name = "billing/bill_search.html"
@@ -277,7 +278,8 @@ class SearchOrder(TemplateView):
         billno=myfilter.qs
         self.context["billno"]=billno
         self.context["myfilter"]=myfilter
-        return render(request,self.template_name,self.context)
+        return render(request, self.template_name,self.context)
+
 
 class HomePageFinal(TemplateView):
     template_name = "billing/homepageview.html"
@@ -310,3 +312,24 @@ class UserLogout(TemplateView):
     def get(self, request, *args, **kwargs):
         logout(request)
         return redirect("login")
+
+class SearchByDate(TemplateView):
+    model=Order
+    template_name = "billing/searchbydate.html"
+    context={}
+    def get(self, request, *args, **kwargs):
+
+        return render(request,self.template_name)
+
+    def post(self, request, *args, **kwargs):
+        date=request.POST.get('date')
+        # print(date)
+        data =self.model.objects.filter(bill_date=date).aggregate(Sum('bill_total'))
+        # print(data["bill_total__sum"])
+        form=self.model.objects.filter(bill_date=date)
+
+
+
+        self.context["data"]=data["bill_total__sum"]
+        self.context["form"]=form
+        return render(request, self.template_name,self.context)

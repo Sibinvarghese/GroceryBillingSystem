@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {% extends 'billing/index.html' %}
+{% load crispy_forms_tags %}
     {% block body_block %}
-
 <!--<html lang="en">-->
 <!--<head>-->
 <!--    <meta charset="UTF-8">-->
@@ -13,15 +13,13 @@
 <!--  text-transform: uppercase;-->
 <!--  color: #ebd586;-->
 <!--}-->
-
-
 <!--    </style>-->
 <!--</head>-->
 <!--<body>-->
 <h1>search</h1>
 <form method="get">
     {{myfilter.form}}
-    <input type="submit" value="Search">
+    <input type="submit" class="btn btn-primary" value="Search">
 
 </form>
 <!-- recipe_name=models.CharField(max_length=120)-->
@@ -29,7 +27,6 @@
 <!--    category=models.CharField(max_length=120)-->
 <!--    recipe_img=models.ImageField(upload_to="images")-->
 <!--    created_by=models.CharField(max_length=120)-->
-
 <table class="table">
     <thead>
         <tr>
@@ -61,18 +58,13 @@
             {{bill.bill_total}}
             </td>
             <td><a href="{% url 'billitems' bill.id %}" class="link-primary">View Items</a></td>
-
-
         </tr>
     </tbody>
-
 {% endfor %}
 </table>
 
 <hr>
-
 <td><a href="{% url 'page' %}" class="link-dark">GotoHomePage</a></td>
-
 {% endblock %}
 
 <!--</body>-->

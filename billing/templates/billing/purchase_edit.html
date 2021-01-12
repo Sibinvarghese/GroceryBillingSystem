@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% extends 'billing/index.html' %}
+{% load crispy_forms_tags %}
     {% block body_block %}
 
 <!--<html lang="en">-->
@@ -20,7 +21,7 @@
 <h1>Edit Purchase Details</h1>
 <form method="post">
     {% csrf_token %}
-    {{form.as_p}}
+    {{form|crispy}}
     <input type="submit" class="btn btn-primary" value="Edit Purchase">
 </form>
 

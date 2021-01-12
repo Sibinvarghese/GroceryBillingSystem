@@ -5,7 +5,7 @@ from .views import CreateProduct,ViewProduct,HomePage,\
     EditProduct,DeleteProduct,CreatePurchase,\
     ViewPurchase,EditPurchase,DeletePurchase,\
     OrderCreate,OrderLinesView,BillGenerate,\
-    ViewBill,ViewBillItems,SearchOrder,HomePageFinal,UserLogin,UserLogout
+    ViewBill,ViewBillItems,SearchOrder,HomePageFinal,UserLogin,UserLogout,SearchByDate
 urlpatterns = [
     path("addproduct",CreateProduct.as_view(),name="create"),
     path("listproduct",ViewProduct.as_view(),name="list"),
@@ -24,5 +24,6 @@ urlpatterns = [
     path("search",SearchOrder.as_view(),name="search"),
     path("homepage",HomePageFinal.as_view(),name="page"),
     path("",UserLogin.as_view(),name="login"),
+    path("sreachdate",SearchByDate.as_view(),name="datesearch"),
     path("logout",UserLogout.as_view(),name="logout")
 ]
